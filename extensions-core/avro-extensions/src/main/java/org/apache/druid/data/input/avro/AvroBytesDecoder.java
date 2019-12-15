@@ -24,15 +24,19 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.apache.avro.generic.GenericRecord;
 
 import java.nio.ByteBuffer;
+import java.util.List;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type", defaultImpl = SchemaRepoBasedAvroBytesDecoder.class)
 @JsonSubTypes(value = {
     @JsonSubTypes.Type(name = "schema_inline", value = InlineSchemaAvroBytesDecoder.class),
     @JsonSubTypes.Type(name = "multiple_schemas_inline", value = InlineSchemasAvroBytesDecoder.class),
     @JsonSubTypes.Type(name = "schema_repo", value = SchemaRepoBasedAvroBytesDecoder.class),
-    @JsonSubTypes.Type(name = "schema_registry", value = SchemaRegistryBasedAvroBytesDecoder.class)
+    @JsonSubTypes.Type(name = "schema_registry", value = SchemaRegistryBasedAvroBytesDecoder.class),
+    @JsonSubTypes.Type(name = "zy_schema_registry", value = ZYSchemaRegistryBasedAvroBytesDecoder.class)
 })
 public interface AvroBytesDecoder
 {
   GenericRecord parse(ByteBuffer bytes);
+
+   List<GenericRecord> parseBatch(ByteBuffer bytes);
 }

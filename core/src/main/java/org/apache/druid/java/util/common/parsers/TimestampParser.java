@@ -36,6 +36,9 @@ import java.util.concurrent.TimeUnit;
 
 public class TimestampParser
 {
+
+   private static final long add8h=8 * 60 * 60 * 1000;
+
   public static Function<String, DateTime> createTimestampParser(
       final String format
   )
@@ -63,7 +66,7 @@ public class TimestampParser
           }
         }
 
-        return DateTimes.utc(Long.parseLong(input));
+        return DateTimes.utc(Long.parseLong(input)+add8h);
       };
     } else if ("iso".equalsIgnoreCase(format)) {
       return input -> {
@@ -104,15 +107,15 @@ public class TimestampParser
   )
   {
     if ("posix".equalsIgnoreCase(format)) {
-      return input -> DateTimes.utc(TimeUnit.SECONDS.toMillis(input.longValue()));
+      return input -> DateTimes.utc(TimeUnit.SECONDS.toMillis(input.longValue())+add8h);
     } else if ("micro".equalsIgnoreCase(format)) {
-      return input -> DateTimes.utc(TimeUnit.MICROSECONDS.toMillis(input.longValue()));
+      return input -> DateTimes.utc(TimeUnit.MICROSECONDS.toMillis(input.longValue())+add8h);
     } else if ("nano".equalsIgnoreCase(format)) {
-      return input -> DateTimes.utc(TimeUnit.NANOSECONDS.toMillis(input.longValue()));
+      return input -> DateTimes.utc(TimeUnit.NANOSECONDS.toMillis(input.longValue())+add8h);
     } else if ("ruby".equalsIgnoreCase(format)) {
-      return input -> DateTimes.utc(Double.valueOf(input.doubleValue() * 1000).longValue());
+      return input -> DateTimes.utc(Double.valueOf(input.doubleValue() * 1000).longValue()+add8h);
     } else {
-      return input -> DateTimes.utc(input.longValue());
+      return input -> DateTimes.utc(input.longValue()+add8h);
     }
   }
 

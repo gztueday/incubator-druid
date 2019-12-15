@@ -37,7 +37,9 @@ import org.schemarepo.api.converter.AvroSchemaConverter;
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class SchemaRepoBasedAvroBytesDecoder<SUBJECT, ID> implements AvroBytesDecoder
@@ -96,7 +98,12 @@ public class SchemaRepoBasedAvroBytesDecoder<SUBJECT, ID> implements AvroBytesDe
     }
   }
 
-  @Override
+   @Override
+   public List<GenericRecord> parseBatch(final ByteBuffer bytes) {
+      return new ArrayList<>(0);
+   }
+
+   @Override
   public boolean equals(Object o)
   {
     if (this == o) {

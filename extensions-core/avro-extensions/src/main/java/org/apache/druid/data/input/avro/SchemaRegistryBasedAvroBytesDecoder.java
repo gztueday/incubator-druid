@@ -32,6 +32,8 @@ import org.apache.avro.io.DecoderFactory;
 import org.apache.druid.java.util.common.parsers.ParseException;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SchemaRegistryBasedAvroBytesDecoder implements AvroBytesDecoder
@@ -72,7 +74,12 @@ public class SchemaRegistryBasedAvroBytesDecoder implements AvroBytesDecoder
     }
   }
 
-  @Override
+   @Override
+   public List<GenericRecord> parseBatch(final ByteBuffer bytes) {
+      return new ArrayList<>(0);
+   }
+
+   @Override
   public boolean equals(Object o)
   {
     if (this == o) {

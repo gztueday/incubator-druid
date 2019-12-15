@@ -37,9 +37,7 @@ import org.apache.druid.java.util.common.parsers.ParseException;
 
 import java.io.EOFException;
 import java.nio.ByteBuffer;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  */
@@ -51,7 +49,10 @@ public class InlineSchemasAvroBytesDecoder implements AvroBytesDecoder
 
   private final Map<Integer, Schema> schemaObjs;
   private final Map<String, Map<String, Object>> schemas;
-
+   @Override
+   public List<GenericRecord> parseBatch(final ByteBuffer bytes) {
+      return new ArrayList<>(0);
+   }
   @JsonCreator
   public InlineSchemasAvroBytesDecoder(
       @JacksonInject @Json ObjectMapper mapper,
