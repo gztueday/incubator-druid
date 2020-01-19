@@ -19,14 +19,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ZYSchemaRegistryBasedAvroBytesDecoder implements AvroBytesDecoder {
+public class ZYLabelSchemaRegistryBasedAvroBytesDecoder implements AvroBytesDecoder {
    private final AvroConverter converter;
-   private static final Logger log = new Logger(ZYSchemaRegistryBasedAvroBytesDecoder.class);
+   private static final Logger log = new Logger(ZYLabelSchemaRegistryBasedAvroBytesDecoder.class);
 
    @JsonCreator
-   public ZYSchemaRegistryBasedAvroBytesDecoder(
+   public ZYLabelSchemaRegistryBasedAvroBytesDecoder(
            @JsonProperty("url") String url,
-           @JsonProperty("capacity") Integer capacity) {
+           @JsonProperty("capacity") Integer capacity,
+           @JsonProperty("label") Map<String, Object> label) {
       log.info("注册的schemal的地址为:[{}]", url);
       this.converter = new AvroConverter();
       Map<String, String> configs = new HashMap<>(1);
@@ -41,7 +42,7 @@ public class ZYSchemaRegistryBasedAvroBytesDecoder implements AvroBytesDecoder {
     */
    //For UT only
    @VisibleForTesting
-   ZYSchemaRegistryBasedAvroBytesDecoder(SchemaRegistryClient registry) {
+   ZYLabelSchemaRegistryBasedAvroBytesDecoder(SchemaRegistryClient registry) {
       this.converter = new AvroConverter();
       Map<String, String> configs = new HashMap<>();
       configs.put("schema.registry.url", "http://datax-sync.hk.batmobi.cn");
@@ -87,7 +88,7 @@ public class ZYSchemaRegistryBasedAvroBytesDecoder implements AvroBytesDecoder {
          return false;
       }
 
-      ZYSchemaRegistryBasedAvroBytesDecoder that = (ZYSchemaRegistryBasedAvroBytesDecoder) o;
+      ZYLabelSchemaRegistryBasedAvroBytesDecoder that = (ZYLabelSchemaRegistryBasedAvroBytesDecoder) o;
 
       return converter != null ? converter.equals(that.converter) : that.converter == null;
    }

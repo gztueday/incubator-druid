@@ -36,7 +36,7 @@ import java.util.List;
 })
 public interface AvroBytesDecoder
 {
-  GenericRecord parse(ByteBuffer bytes);
+   GenericRecord parse(ByteBuffer bytes);
 
    List<GenericRecord> parseBatch(ByteBuffer bytes);
 }

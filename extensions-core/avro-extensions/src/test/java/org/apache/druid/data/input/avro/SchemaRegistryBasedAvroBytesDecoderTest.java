@@ -82,8 +82,8 @@ public class SchemaRegistryBasedAvroBytesDecoderTest
   {
     // Given
     Mockito.when(registry.getByID(ArgumentMatchers.anyInt())).thenThrow(new IOException("no pasaran"));
-    GenericRecord someAvroDatum = AvroStreamInputRowParserTest.buildSomeAvroDatum();
-    Schema schema = SomeAvroDatum.getClassSchema();
+     final SomeAvroDatum someAvroDatum = AvroStreamInputRowParserTest.buildSomeAvroDatum();
+     Schema schema = SomeAvroDatum.getClassSchema();
     byte[] bytes = getAvroDatum(schema, someAvroDatum);
     ByteBuffer bb = ByteBuffer.allocate(bytes.length + 5).put((byte) 0).putInt(1234).put(bytes);
     // When
